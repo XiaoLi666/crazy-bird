@@ -5,29 +5,30 @@ using UnityEngine.SceneManagement;
 public class CGameManager : MonoBehaviour {
 
 	// Public members:
-
-	public GameObject m_mainmenu;
-	public GameObject m_tutorialMenu;
-	public GameObject m_scoreMenu;
-
 	public GameObject m_player;
 	public GameObject m_pipes;
 
 	// Private members:
 
 	private bool m_isPlayerDead = false;
+	private CGameStateBase m_state;
 	private static CGameManager m_instance;
-	private CGameState m_gameState = null;
 
-	public CGameState GameState {
+	public CGameStateBase GameState {
+		set {
+			m_state = value;
+		}
 		get {
-			return m_gameState;
+			return m_state;
 		}
 	}
 
 	public bool IsPlayerDead {
 		set {
 			m_isPlayerDead = value;
+		}
+		get {
+			return m_isPlayerDead;
 		}
 	}
 
@@ -42,6 +43,19 @@ public class CGameManager : MonoBehaviour {
 		m_pipes.SetActive(is_active);
 	}
 
+	public void Restart () {
+		SceneManager.LoadScene("CrazyBird");
+	}
+
+	public void UpdateState(CGameStateBase new_state) {
+		if (m_state != null) {
+			m_state.PostState ();
+		}
+		GameState = new_state;
+	}
+
+	// Private Methods:
+
 	void Awake() {
 		if (!m_instance) {
 			m_instance = this;
@@ -50,24 +64,12 @@ public class CGameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		m_gameState = new CGameState();
-		m_gameState.CurrentState = CGameStateType.GameState.STATE_MainMenu;
-
-		m_player.SetActive (false);
-		m_pipes.SetActive (false);
+		UpdateState (new CGameStateMainMenu ());
 	}
 
 	// Update is called once per frame
 	void Update() {
-		m_gameState.UpdateState ();
-
-		if (m_isPlayerDead) {
-			// Restart ();
-			CGameManager.Instance.GameState.CurrentState = CGameStateType.GameState.STATE_ScoreMenu;
-		}
-	}
-
-	public void Restart () {
-		SceneManager.LoadScene("CrazyBird");
+		// m_gameState.UpdateState ();
+		m_state.Update();
 	}
 }
