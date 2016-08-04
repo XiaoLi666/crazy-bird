@@ -4,6 +4,7 @@ using System.Collections;
 public class CPipesController : CMovingObjectsController {
 
 	public GameObject[] m_pipeGroups;
+	public GameObject[] m_scoreChecker;
 	public float m_lowerBound;
 	public float m_upperBound;
 
@@ -21,6 +22,11 @@ public class CPipesController : CMovingObjectsController {
 			if (ReachEndWaypoint (pipe_group)) {
 				pipe_group.transform.position = m_startWaypoint.transform.position;
 				RandomizePipePosition(pipe_group);
+
+				// Reset score checker
+				for (int j = 0; j < m_scoreChecker.Length; ++j) {
+					m_scoreChecker [i].SetActive (true);
+				}
 			}
 		}
 	}

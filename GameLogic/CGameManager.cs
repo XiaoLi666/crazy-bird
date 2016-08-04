@@ -12,7 +12,18 @@ public class CGameManager : MonoBehaviour {
 
 	private bool m_isPlayerDead = false;
 	private CGameStateBase m_state;
+	private int m_score;
 	private static CGameManager m_instance;
+
+	public int Score {
+		get {
+			return m_score;
+		}
+		set {
+			m_score = value;
+			((CGameStateGame)GameState).UpdateScore (m_score);
+		}
+	}
 
 	public CGameStateBase GameState {
 		set {
@@ -65,6 +76,7 @@ public class CGameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start() {
 		UpdateState (new CGameStateMainMenu ());
+		m_score = 0;
 	}
 
 	// Update is called once per frame

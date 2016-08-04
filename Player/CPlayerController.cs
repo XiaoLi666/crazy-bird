@@ -18,14 +18,12 @@ public class CPlayerController : MonoBehaviour {
 	private Rigidbody2D m_playerRigidBody;
 	private Transform m_playerTransform;
 	private Vector2 m_upVelocity;
-	private int m_score;
 
 	// Use this for initialization
 	void Start () {
 		m_playerRigidBody = m_player.GetComponent<Rigidbody2D>();
 		m_playerTransform = m_player.transform;
 		m_upVelocity = new Vector2(0f, m_upVelocityRange);
-		m_score = 0;
 	}
 	
 	// Update is called once per frame
@@ -44,6 +42,11 @@ public class CPlayerController : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag=="ground" || other.gameObject.tag == "pipes") {
 			CGameManager.Instance.IsPlayerDead = true;
+		}
+
+		if (other.gameObject.tag == "score_checker") {
+			other.gameObject.SetActive (false);
+			CGameManager.Instance.Score ++;
 		}
 	}
 }

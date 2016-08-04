@@ -8,6 +8,7 @@ public class CUIController : MonoBehaviour {
 	public GameObject m_mainMenu;
 	public GameObject m_tutorialMenu;
 	public GameObject m_scoreMenu;
+	public GameObject m_inGameUI;
 
 	// Private members:
 
