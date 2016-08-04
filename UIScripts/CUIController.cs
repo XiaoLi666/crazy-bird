@@ -10,6 +10,15 @@ public class CUIController : MonoBehaviour {
 	public GameObject m_scoreMenu;
 	public GameObject m_inGameUI;
 
+	public Sprite m_medalNormal;
+	public Sprite m_medalCopper;
+	public Sprite m_medalSilver;
+	public Sprite m_medalGold;
+	public GameObject m_medal;
+
+	public GameObject m_scoreMenuMyScore;
+	public GameObject m_scoreMenuBestScore;
+
 	// Private members:
 
 	private static CUIController m_instance;

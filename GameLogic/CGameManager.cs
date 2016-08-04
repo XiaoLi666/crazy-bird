@@ -7,6 +7,7 @@ public class CGameManager : MonoBehaviour {
 	// Public members:
 	public GameObject m_player;
 	public GameObject m_pipes;
+	public int m_scoreToWin;
 
 	// Private members:
 
